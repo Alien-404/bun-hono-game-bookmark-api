@@ -1,0 +1,27 @@
+{
+  "name": "hono-game-store",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "serve": "bun run index.ts",
+    "dev": "bun --watch index.ts",
+    "migrate:dev": "bunx prisma migrate dev --name init"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "prisma": "^5.14.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@paralleldrive/cuid2": "^2.2.2",
+    "@prisma/client": "^5.14.0",
+    "hono": "^4.3.11",
+    "hono-rate-limiter": "^0.3.0",
+    "zod": "^3.23.8"
+  }
+}

@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// model
+model Game {
+  id               String   @id @default(cuid())
+  title            String
+  thumbnail        String
+  shortDescription String
+  gameUrl          String
+  genre            String
+  platform         String
+  publisher        String
+  developer        String
+  releaseDate      String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // relations
+  bookmarks Bookmark[]
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  username  String
+  password  String
+  gender    Boolean
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // relations
+  bookmarks Bookmark[]
+
+  @@unique([email, username])
+}
+
+model Bookmark {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  category    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  games  Game[]
+}
